@@ -10,7 +10,7 @@ export const AttendeeSchema = new Schema({
 
 AttendeeSchema.index({ accountId: 1, eventId: 1 }, { unique: true })
 
-AttendeeSchema.virtual('attendee', {
+AttendeeSchema.virtual('account', {
     foreignField: '_id',
     localField: 'accountId',
     justOne: true,

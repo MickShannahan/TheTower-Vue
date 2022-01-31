@@ -47,8 +47,12 @@ class TowerEventsService {
 
     }
 
-    async adjustCapacity() {
-
+    async adjustCapacity(attendee) {
+        if (new attendee created) {
+            eventid.capacity--
+        } else if (attendee is deleted) {
+            eventid.capacity++
+        }
     }
 }
 
