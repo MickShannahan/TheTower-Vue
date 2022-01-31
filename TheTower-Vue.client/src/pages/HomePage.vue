@@ -8,7 +8,7 @@
   </div>
   <div class="row">
     <div class="d-flex justify-content-around pt-2">
-      <p>CONCERTS</p>
+      <p @click="filterEvents('concert')">CONCERTS</p>
       <p>SPORTS</p>
       <p>CONVENTIONS</p>
       <p>DIGITAL</p>
@@ -36,7 +36,11 @@ export default {
     })
     return {
       name: 'Home',
-      events: computed(() => AppState.events)
+      events: computed(() => AppState.events),
+      filterEvents(string) {
+        const filtered = AppState.events.filter(e => e.type == string)
+
+      }
     }
   }
 
