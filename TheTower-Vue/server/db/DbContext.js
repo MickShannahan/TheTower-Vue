@@ -13,7 +13,7 @@ class DbContext {
   TowerEvents = mongoose.model('TowerEvent', TowerEventSchema);
   Comments = mongoose.model('Comment', CommentSchema);
 
-  Attendees = mongoose.model('Atendee', AttendeeSchema)
+  Attendees = mongoose.model('Attendee', AttendeeSchema)
 }
 
 export const dbContext = new DbContext()

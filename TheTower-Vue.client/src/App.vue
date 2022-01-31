@@ -3,16 +3,7 @@
     <Navbar />
   </header>
   <main>
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-11">
-          <router-view />
-        </div>
-        <div class="col-1 m-0 p-0">
-          <Sidebar />
-        </div>
-      </div>
-    </div>
+    <router-view />
   </main>
 </template>
 

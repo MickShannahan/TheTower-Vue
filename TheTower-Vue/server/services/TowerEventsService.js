@@ -47,13 +47,13 @@ class TowerEventsService {
 
     }
 
-    async adjustCapacity(attendee) {
-        if (new attendee created) {
-            eventid.capacity--
-        } else if (attendee is deleted) {
-            eventid.capacity++
-        }
-    }
+    // async adjustCapacity(attendee) {
+    //     if (new attendee created) {
+    //         eventid.capacity--
+    //     } else if (attendee is deleted) {
+    //         eventid.capacity++
+    //     }
+    // }
 }
 
 // ^^need my delete function to throw bad request if someone tries to edit after delete

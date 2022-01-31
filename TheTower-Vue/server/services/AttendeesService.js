@@ -8,7 +8,7 @@ class AttendeesService {
     async createAttendee(newAttendee) {
         const createdAttendee = await dbContext.Attendees.create(newAttendee)
         await createdAttendee.populate('account', 'name picture')
-        await towerEventsService.adjustCapacity(newAttendee)
+        // await towerEventsService.adjustCapacity(newAttendee)
         return createdAttendee
     }
     // { eventId: newAttendee.eventId }

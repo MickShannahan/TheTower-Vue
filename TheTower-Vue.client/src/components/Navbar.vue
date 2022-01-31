@@ -17,6 +17,17 @@
       <span class="navbar-toggler-icon" />
     </button>
     <div class="collapse navbar-collapse" id="navbarText">
+      <ul class="navbar-nav me-auto">
+        <li>
+          <button
+            class="btn btn-outline-success lighten-30 selectable text-uppercase"
+            aria-label="Create new event"
+            title="create new event"
+          >
+            Create Event
+          </button>
+        </li>
+      </ul>
       <span class="navbar-text">
         <button
           class="
