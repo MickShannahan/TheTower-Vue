@@ -26,8 +26,12 @@ class TowerEventsService {
         if (eventToEdit.creatorId.toString() !== updatedEvent.creatorId) {
             throw new BadRequest('Unable to edit event')
         }
+        if (!updatedEvent.isCanceled) {
+            throw new BadRequest('Unable to edit cancelled event')
+        }
         eventToEdit.name = updatedEvent.name || eventToEdit.name
         eventToEdit.description = updatedEvent.description || eventToEdit.description
+
         await eventToEdit.save()
         return eventToEdit
     }
@@ -40,6 +44,10 @@ class TowerEventsService {
         deletedEvent.isCanceled = !eventToCancel.isCanceled
         await deletedEvent.save()
         return deletedEvent
+
+    }
+
+    async adjustCapacity() {
 
     }
 }
