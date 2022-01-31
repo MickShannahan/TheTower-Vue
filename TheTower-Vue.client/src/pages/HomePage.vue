@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import { computed, onMounted, popScopeId } from '@vue/runtime-core'
+import { computed, onMounted } from '@vue/runtime-core'
 import { eventsService } from "../services/EventsService"
 import { AppState } from '../AppState'
 import Pop from '../utils/Pop'

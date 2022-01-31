@@ -38,6 +38,9 @@ class AttendeesService {
             throw new BadRequest('Unable to delete attendee')
         }
         await deletedAttendee.remove()
+        const foundEvent = await towerEventsService.getTowerEventById(deletedAttendee.eventId)
+        foundEvent.capacity++
+        foundEvent.save()
         return deletedAttendee
     }
     // ^^ Need capacity to increase when attendee is deleted
