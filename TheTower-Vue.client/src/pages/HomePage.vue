@@ -21,12 +21,13 @@
 </template>
 
 <script>
-import { computed, onMounted } from '@vue/runtime-core'
+import { computed, onMounted, ref } from '@vue/runtime-core'
 import { eventsService } from "../services/EventsService"
 import { AppState } from '../AppState'
 import Pop from '../utils/Pop'
 export default {
   setup() {
+
     onMounted(async () => {
       try {
         await eventsService.getEvents()
@@ -54,3 +55,21 @@ export default {
   min-height: 35vh;
 }
 </style>
+
+
+
+//  editable = ref({ type: '' }),
+//       onMounted(async () => {
+//         try {
+//           await eventsService.getEvents()
+//         } catch (error) {
+//           Pop.toast(error.message, "error")
+//         }
+//       })
+//     return {
+//       name: 'Home',
+//       events: computed(() => AppState.events.filter(e => e.type == editable.type)),
+//       async filterEvents(string) {
+//         debugger
+//         let filtered = AppState.events.filter(e => e.type === string)
+//         console.log(filtered)
