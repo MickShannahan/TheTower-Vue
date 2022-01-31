@@ -8,11 +8,11 @@
   </div>
   <div class="row">
     <div class="d-flex justify-content-around pt-2">
-      <p @click="filterEvents('concert')">CONCERTS</p>
-      <p>SPORTS</p>
-      <p>CONVENTIONS</p>
-      <p>DIGITAL</p>
-      <p>EXPOS</p>
+      <p class="selectable" @click="filterEvents('concert')">CONCERTS</p>
+      <p class="selectable" @click="filterEvents('sport')">SPORTS</p>
+      <p class="selectable" @click="filterEvents('convention')">CONVENTIONS</p>
+      <p class="selectable" @click="filterEvents('digital')">DIGITAL</p>
+      <p class="selectable" @click="filterEvents('expos')">EXPOS</p>
     </div>
   </div>
   <div class="row d-flex">
@@ -37,8 +37,10 @@ export default {
     return {
       name: 'Home',
       events: computed(() => AppState.events),
-      filterEvents(string) {
-        const filtered = AppState.events.filter(e => e.type == string)
+      async filterEvents(string) {
+        debugger
+        let filtered = AppState.events.filter(e => e.type === string)
+        console.log(filtered)
 
       }
     }

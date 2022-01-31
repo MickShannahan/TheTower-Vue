@@ -23,6 +23,8 @@
             class="btn btn-outline-success lighten-30 selectable text-uppercase"
             aria-label="Create new event"
             title="create new event"
+            data-bs-toggle="modal"
+            data-bs-target="#create-event-modal"
           >
             Create Event
           </button>
@@ -84,6 +86,7 @@
       </span>
     </div>
   </nav>
+  <CreateEventModal id="create-event-modal" />
 </template>
 
 <script>
