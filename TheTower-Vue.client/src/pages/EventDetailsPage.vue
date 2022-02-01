@@ -12,7 +12,7 @@
           </div>
           <div class="col-md-8">
             <div class="card-body">
-              <div class="dropdown" v-if="event.creator.id === account.id">
+              <div class="dropdown" v-if="event.creatorId === account.id">
                 <div
                   class="dropdown-toggle selectable text-end"
                   data-bs-toggle="dropdown"

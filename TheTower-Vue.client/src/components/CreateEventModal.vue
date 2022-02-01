@@ -118,16 +118,24 @@ import { Modal } from 'bootstrap';
 import { eventsService } from '../services/EventsService';
 import Pop from '../utils/Pop';
 import { ref } from '@vue/reactivity';
+
+import { useRouter } from 'vue-router';
 export default {
   setup() {
     const editable = ref({})
+    const router = useRouter()
     return {
       editable,
+      router,
       async createEvent() {
         try {
-          await eventsService.createEvent(editable.value);
+          const newEvent = await eventsService.createEvent(editable.value);
           editable.value = {};
-          Modal.getOrCreateInstance(document.getElementById('create-event-modal')).hide()
+          Modal.getOrCreateInstance(document.getElementById('create-event-modal')).hide();
+          router.push({
+            name: "EventDetails",
+            params: { id: newEvent.id },
+          });
         } catch (error) {
           Pop.toast(error.message, "error")
         }
