@@ -15,8 +15,8 @@
       <p class="selectable" @click="filterEvents('expos')">EXPOS</p>
     </div>
   </div>
-  <div class="row d-flex">
-    <Event v-for="n in 10" :key="n" />
+  <div class="row d-flex p-3">
+    <Event v-for="e in events" :key="e.id" :event="e" />
   </div>
 </template>
 
@@ -53,23 +53,9 @@ export default {
 <style scoped lang="scss">
 .banner {
   min-height: 35vh;
+  background-image: url("https://i.pinimg.com/originals/69/d0/7f/69d07f5b4e21ac19a3bdebbbdd6d2cc1.jpg");
+  background-position: center;
+  background-size: cover;
 }
 </style>
 
-
-
-//  editable = ref({ type: '' }),
-//       onMounted(async () => {
-//         try {
-//           await eventsService.getEvents()
-//         } catch (error) {
-//           Pop.toast(error.message, "error")
-//         }
-//       })
-//     return {
-//       name: 'Home',
-//       events: computed(() => AppState.events.filter(e => e.type == editable.type)),
-//       async filterEvents(string) {
-//         debugger
-//         let filtered = AppState.events.filter(e => e.type === string)
-//         console.log(filtered)
