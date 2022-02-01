@@ -3,8 +3,9 @@ import { AppState } from "../AppState";
 
 class CommentsService {
 
-    async createComment(newComment) {
-        const res = await api.post('api/comments/', newComment)
+    async createComment(eventId, body) {
+        body.eventId = eventId
+        const res = await api.post('api/comments/', body)
         console.log('creating this comment', res.data)
         AppState.comments.push(res.data)
     }

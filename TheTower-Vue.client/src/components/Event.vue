@@ -16,6 +16,7 @@
           <p>{{ event.location }}</p>
           <p>{{ new Date(event.startDate).toLocaleString() }}</p>
           <p>{{ event.capacity }}</p>
+          <p v-if="event.isCanceled" class="text-danger">Cancelled</p>
         </div>
       </div>
     </div>
