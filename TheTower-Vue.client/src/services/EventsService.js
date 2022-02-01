@@ -19,6 +19,7 @@ class EventsService {
         const res = await api.post('api/events', newEvent)
         console.log(res.data)
         AppState.events.unshift(res.data)
+        return res.data
 
     }
 

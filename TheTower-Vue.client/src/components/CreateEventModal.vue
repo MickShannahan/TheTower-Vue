@@ -1,4 +1,5 @@
 <template>
+  <!-- MAKE SURE TO ADD REQUIRED FIELDS -->
   <div class="modal" tabindex="-1">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -9,6 +10,7 @@
             class="btn-close"
             data-bs-dismiss="modal"
             aria-label="Close"
+            required
           ></button>
         </div>
         <div class="modal-body">
@@ -20,6 +22,7 @@
                 class="form-control"
                 id="inputEventName"
                 v-model="editable.name"
+                required
               />
             </div>
             <div class="col-12">
@@ -33,6 +36,7 @@
                 class="form-control"
                 id="inputEventDescription"
                 v-model="editable.description"
+                required
               ></textarea>
             </div>
             <div class="col-12">
@@ -45,6 +49,7 @@
                 id="inputEventImage"
                 placeholder="Image Url..."
                 v-model="editable.coverImg"
+                required
               />
             </div>
             <div class="col-12">
@@ -57,6 +62,7 @@
                 id="inputEventLocation"
                 placeholder="Location"
                 v-model="editable.location"
+                required
               />
             </div>
             <div class="col-md-6">
@@ -66,6 +72,7 @@
                 class="form-control"
                 id="inputEventDate"
                 v-model="editable.startDate"
+                required
               />
             </div>
             <div class="col-md-4">
@@ -74,6 +81,7 @@
                 id="inputEventType"
                 class="form-select"
                 v-model="editable.type"
+                required
               >
                 <option selected>Type...</option>
                 <option>Concert</option>
@@ -92,6 +100,7 @@
                 class="form-control"
                 id="inputEventCapacity"
                 v-model="editable.capacity"
+                required
               />
             </div>
             <div class="modal-footer">
@@ -137,7 +146,7 @@ export default {
             params: { id: newEvent.id },
           });
         } catch (error) {
-          Pop.toast(error.message, "error")
+          Pop.toast(error.message, "error"); logger.error(error)
         }
       }
     };

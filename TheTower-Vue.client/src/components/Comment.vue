@@ -46,11 +46,11 @@ export default {
       account: computed(() => AppState.account),
       async deleteComment() {
         try {
-          if (Pop.confirm('Are you sure you want to delete this comment?')) {
+          if (await Pop.confirm('Are you sure you want to delete this comment?')) {
             await commentsService.deleteComment(props.comment.id)
           }
         } catch (error) {
-          Pop.toast(error.message, "error")
+          Pop.toast(error.message, "error"); logger.error(error)
         }
       }
     };

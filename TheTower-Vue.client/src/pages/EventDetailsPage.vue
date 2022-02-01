@@ -106,14 +106,16 @@
     <div class="col-12 px-4">
       <div class="card bg-dark">
         <p>Attending:</p>
-        <div v-for="a in attendees" :key="a.id" class="p-1">
-          <p>
-            <img
-              class="user-img"
-              :title="a.account.name"
-              :src="a.account.picture"
-            />
-          </p>
+        <div class="d-flex">
+          <div v-for="a in attendees" :key="a.id" class="p-1">
+            <p class="d-flex">
+              <img
+                class="user-img"
+                :title="a.account.name"
+                :src="a.account.picture"
+              />
+            </p>
+          </div>
         </div>
       </div>
     </div>
@@ -160,6 +162,7 @@ import { eventsService } from '../services/EventsService';
 import { useRoute } from 'vue-router';
 import { commentsService } from '../services/CommentsService';
 import { attendeesService } from '../services/AttendeesService';
+import { logger } from '../utils/Logger';
 export default {
   setup() {
     const route = useRoute()
@@ -170,12 +173,13 @@ export default {
         await eventsService.getEventComments(route.params.id)
         await eventsService.getEventAttendees(route.params.id)
       } catch (error) {
-        Pop.toast(error.message, "error")
+        Pop.toast(error.message, "error"); logger.error(error)
       }
     })
     return {
       route,
       editable,
+      //   Make a computed find or include for the attendees and account
       event: computed(() => AppState.activeEvent),
       account: computed(() => AppState.account),
       attendees: computed(() => AppState.attendees),
@@ -186,23 +190,25 @@ export default {
           try {
             await eventsService.cancelEvent(route.params.id)
           } catch (error) {
-            Pop.toast(error.message, "error")
+            Pop.toast(error.message, "error"); logger.error(error)
           }
         }
       },
       async createComment() {
         try {
-          await commentsService.createComment(editable.value, route.params.id);
+          await commentsService.createComment(route.params.id, editable.value);
           editable.value = {};
         } catch (error) {
-          Pop.toast(error.message, "error")
+          Pop.toast(error.message, "error"); logger.error(error)
+          logger.error(error)
         }
       },
       async addAttendee() {
         try {
-          await this.attendeesService.addAttendee()
+          let body = { eventId: route.params.id }
+          await attendeesService.addAttendee(body)
         } catch (error) {
-          Pop.toast(error.message, "error")
+          Pop.toast(error.message, "error"); logger.error(error)
         }
       }
 

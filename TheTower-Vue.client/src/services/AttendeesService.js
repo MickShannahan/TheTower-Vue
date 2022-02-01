@@ -3,8 +3,8 @@ import { AppState } from "../AppState";
 
 class AttendeesService {
 
-    async addAttendee() {
-        const res = await api.post('api/attendees')
+    async addAttendee(body) {
+        const res = await api.post('api/attendees', body)
         console.log('attending', res.data)
         AppState.attendees = res.data
     }

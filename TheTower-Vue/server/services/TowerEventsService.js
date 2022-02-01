@@ -32,6 +32,7 @@ class TowerEventsService {
         eventToEdit.name = updatedEvent.name || eventToEdit.name
         eventToEdit.description = updatedEvent.description || eventToEdit.description
 
+
         await eventToEdit.save()
         return eventToEdit
     }

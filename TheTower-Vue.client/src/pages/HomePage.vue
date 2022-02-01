@@ -1,9 +1,7 @@
 <template>
   <div class="row justify-content-center mt-3">
     <div class="col-12 p-4">
-      <div class="card banner">
-        <p>Tower Home Banner Here</p>
-      </div>
+      <div class="card banner"></div>
     </div>
   </div>
   <div class="row">
@@ -27,22 +25,21 @@ import { AppState } from '../AppState'
 import Pop from '../utils/Pop'
 export default {
   setup() {
-
+    // const filtered = ref('')
     onMounted(async () => {
       try {
         await eventsService.getEvents()
       } catch (error) {
-        Pop.toast(error.message, "error")
+        Pop.toast(error.message, "error"); logger.error(error)
       }
     })
     return {
       name: 'Home',
       events: computed(() => AppState.events),
       async filterEvents(string) {
-        debugger
-        let filtered = AppState.events.filter(e => e.type === string)
+        let filtered = AppState.events.filter(e => { e.type.toLowerCase() === string.toLowerCase() })
         console.log(filtered)
-
+        return filtered
       }
     }
   }

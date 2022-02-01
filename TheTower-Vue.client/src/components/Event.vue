@@ -44,6 +44,6 @@ export default {
 
 <style>
 .text-shadow {
-  text-shadow: 3px 3px 3px white;
+  text-shadow: 3px 3px 3px black;
 }
 </style>
