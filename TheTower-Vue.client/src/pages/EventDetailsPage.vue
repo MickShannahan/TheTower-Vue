@@ -66,20 +66,25 @@
                 </p>
                 <button
                   class="btn btn-info col-3 disabled"
-                  @click="addAttendee()"
                   :aria-label="'attend' + ' ' + event.name"
                   v-if="event.capacity == 0"
                 >
-                  <!-- v-if="account.id != attendees.account.id" -->
                   Event is Sold Out
                 </button>
+                <button
+                  class="btn btn-success col-3 disabled"
+                  :aria-label="'attend' + ' ' + event.name"
+                  v-else-if="isAttending"
+                >
+                  Enjoy the Show!
+                </button>
+
                 <button
                   v-else
                   class="btn btn-success col-3"
                   @click="addAttendee()"
                   :aria-label="'attend' + ' ' + event.name"
                 >
-                  <!-- v-if="account.id != attendees.account.id" -->
                   Attend Event
                 </button>
                 <!-- <button
@@ -184,6 +189,7 @@ export default {
       account: computed(() => AppState.account),
       attendees: computed(() => AppState.attendees),
       comments: computed(() => AppState.comments),
+      isAttending: computed(() => AppState.attendees.find(a => a.accountId == AppState.account.id)),
 
       async cancelEvent() {
         if (Pop.confirm('Are you sure you would like to cancel this event?')) {

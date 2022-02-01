@@ -25,7 +25,7 @@ import { AppState } from '../AppState'
 import Pop from '../utils/Pop'
 export default {
   setup() {
-    // const filtered = ref('')
+    const filtered = ref({})
     onMounted(async () => {
       try {
         await eventsService.getEvents()

@@ -3,8 +3,8 @@ import { BadRequest } from '../utils/Errors'
 
 class TowerEventsService {
 
-    async getAllTowerEvents() {
-        const events = dbContext.TowerEvents.find().populate('creator', 'name picture')
+    async getAllTowerEvents(query = {}) {
+        const events = dbContext.TowerEvents.find(query).populate('creator', 'name picture')
         return events
     }
 
@@ -26,7 +26,7 @@ class TowerEventsService {
         if (eventToEdit.creatorId.toString() !== updatedEvent.creatorId) {
             throw new BadRequest('Unable to edit event')
         }
-        if (!updatedEvent.isCanceled) {
+        if (eventToEdit.isCanceled) {
             throw new BadRequest('Unable to edit cancelled event')
         }
         eventToEdit.name = updatedEvent.name || eventToEdit.name
@@ -42,7 +42,7 @@ class TowerEventsService {
         if (deletedEvent.creatorId.toString() !== creatorId) {
             throw new BadRequest('Unable to cancel event')
         }
-        deletedEvent.isCanceled = !eventToCancel.isCanceled
+        deletedEvent.isCanceled = true
         await deletedEvent.save()
         return deletedEvent
 

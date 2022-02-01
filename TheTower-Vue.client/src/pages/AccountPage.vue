@@ -5,6 +5,12 @@
       <Event v-for="e in events" :key="e.id" :event="e" />
     </div>
   </div>
+  <div class="row">
+    <h2>Attending:</h2>
+    <div class="row d-flex p-3">
+      <Event v-for="e in attending" :key="e.id" :event="e" />
+    </div>
+  </div>
 </template>
 
 <script>
@@ -18,13 +24,16 @@ export default {
     onMounted(async () => {
       try {
         await accountService.getAccountEvents()
+        await accountService.getMyEvents()
       } catch (error) {
         Pop.toast('Unable to find events')
       }
     })
     return {
       account: computed(() => AppState.account),
-      events: computed(() => AppState.myEvents)
+      attending: computed(() => AppState.attending),
+      events: computed(() => AppState.myEvents),
+
 
     }
   }
