@@ -12,7 +12,7 @@
           </div>
           <div class="col-md-8">
             <div class="card-body">
-              <div class="dropdown">
+              <div class="dropdown" v-if="event.creator.id === account.id">
                 <div
                   class="dropdown-toggle selectable text-end"
                   data-bs-toggle="dropdown"
@@ -23,7 +23,11 @@
                   <span class="mx-3 text-white display-3">...</span>
                 </div>
                 <div class="dropdown-menu p-0" aria-labelledby="eventDropdown">
-                  <div class="hoverable selectable" @click="editEvent()">
+                  <div
+                    class="hoverable selectable"
+                    data-bs-toggle="modal"
+                    data-bs-target="#edit-event-modal"
+                  >
                     Edit Event
                   </div>
 
@@ -144,6 +148,7 @@
       </div>
     </div>
   </div>
+  <EditEventModal id="edit-event-modal" />
 </template>
 
 <script>
