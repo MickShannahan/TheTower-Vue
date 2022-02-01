@@ -15,7 +15,12 @@
           <form @submit.prevent="createEvent()" class="row g-3">
             <div class="col-12">
               <label for="inputEventName" class="form-label">Event Name</label>
-              <input type="text" class="form-control" id="inputEventName" />
+              <input
+                type="text"
+                class="form-control"
+                id="inputEventName"
+                v-model="editable.name"
+              />
             </div>
             <div class="col-12">
               <label for="inputEventDescription" class="form-label"
@@ -27,6 +32,7 @@
                 type="text"
                 class="form-control"
                 id="inputEventDescription"
+                v-model="editable.description"
               ></textarea>
             </div>
             <div class="col-12">
@@ -38,6 +44,7 @@
                 class="form-control"
                 id="inputEventImage"
                 placeholder="Image Url..."
+                v-model="editable.coverImg"
               />
             </div>
             <div class="col-12">
@@ -49,15 +56,25 @@
                 class="form-control"
                 id="inputEventLocation"
                 placeholder="Location"
+                v-model="editable.location"
               />
             </div>
             <div class="col-md-6">
               <label for="inputEventDate" class="form-label">Start Date</label>
-              <input type="date" class="form-control" id="inputEventDate" />
+              <input
+                type="date"
+                class="form-control"
+                id="inputEventDate"
+                v-model="editable.startDate"
+              />
             </div>
             <div class="col-md-4">
               <label for="inputEventType" class="form-label">Event Type</label>
-              <select id="inputEventType" class="form-select">
+              <select
+                id="inputEventType"
+                class="form-select"
+                v-model="editable.type"
+              >
                 <option selected>Type...</option>
                 <option>Concert</option>
                 <option>Sport</option>
@@ -74,6 +91,7 @@
                 type="number"
                 class="form-control"
                 id="inputEventCapacity"
+                v-model="editable.capacity"
               />
             </div>
             <div class="modal-footer">
@@ -96,9 +114,25 @@
 </template>
 
 <script>
+import { Modal } from 'bootstrap';
+import { eventsService } from '../services/EventsService';
+import Pop from '../utils/Pop';
+import { ref } from '@vue/reactivity';
 export default {
   setup() {
-    return {};
+    const editable = ref({})
+    return {
+      editable,
+      async createEvent() {
+        try {
+          await eventsService.createEvent(editable.value);
+          editable.value = {};
+          Modal.getOrCreateInstance(document.getElementById('create-event-modal')).hide()
+        } catch (error) {
+          Pop.toast(error.message, "error")
+        }
+      }
+    };
   }
 
 }
@@ -107,4 +141,3 @@ export default {
 <style>
 </style>
 
-// v-model="editable.type"

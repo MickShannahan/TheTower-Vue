@@ -18,8 +18,8 @@ class EventsService {
     async createEvent(newEvent) {
         const res = await api.post('api/events', newEvent)
         console.log(res.data)
-        AppState.activeEvent.unshift(res.data)
-        return res.data
+        AppState.events.unshift(res.data)
+
     }
 
     async getEventComments(eventId) {
