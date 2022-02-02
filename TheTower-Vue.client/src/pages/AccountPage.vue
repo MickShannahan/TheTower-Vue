@@ -1,12 +1,12 @@
 <template>
-  <div class="row">
+  <!-- <div class="row">
     <div class="col-12">
       <h2>My Events:</h2>
       <div class="row d-flex p-3">
         <Event v-for="e in events" :key="e.id" :event="e" />
       </div>
     </div>
-  </div>
+  </div> -->
   <div class="row">
     <div class="col-12">
       <h2>Attending:</h2>
