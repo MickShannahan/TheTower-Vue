@@ -1,14 +1,18 @@
 <template>
   <div class="row">
-    <h2>My Events:</h2>
-    <div class="row d-flex p-3">
-      <Event v-for="e in events" :key="e.id" :event="e" />
+    <div class="col-12">
+      <h2>My Events:</h2>
+      <div class="row d-flex p-3">
+        <Event v-for="e in events" :key="e.id" :event="e" />
+      </div>
     </div>
   </div>
   <div class="row">
-    <h2>Attending:</h2>
-    <div class="row d-flex p-3">
-      <Event v-for="e in attending" :key="e.id" :event="e" />
+    <div class="col-12">
+      <h2>Attending:</h2>
+      <div class="row d-flex p-3">
+        <Event v-for="e in attending" :key="e.id" :event="e" />
+      </div>
     </div>
   </div>
 </template>
@@ -24,15 +28,18 @@ export default {
     onMounted(async () => {
       try {
         await accountService.getAccountEvents()
-        await accountService.getMyEvents()
+        debugger
+        await accountService.getMyEvents(eventsCreated.id)
       } catch (error) {
         Pop.toast('Unable to find events')
+        console.log(error)
       }
     })
     return {
       account: computed(() => AppState.account),
       attending: computed(() => AppState.attending),
       events: computed(() => AppState.myEvents),
+      eventsCreated: computed(() => AppState.events.find(e => e.creatorId == AppState.account.id))
 
 
     }

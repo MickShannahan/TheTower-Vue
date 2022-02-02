@@ -14,16 +14,17 @@ class AccountService {
 
   async getAccountEvents() {
     const res = await api.get('account/attendees')
-    console.log('getting account events', res.data)
+    console.log('getting attending events', res.data)
     AppState.attending = res.data.map(rd => rd.event)
 
   }
 
-  async getMyEvents() {
+  async getMyEvents(eventId) {
 
-    const res = await api.get('account/attendees')
-    console.log('getting account events', res.data)
-    AppState.attending = res.data.map(rd => rd.event)
+    const res = await api.get(`api/events/${eventId}`)
+    console.log(res.data)
+    logger.error(err)
+    AppState.myEvents = res.data
   }
 }
 

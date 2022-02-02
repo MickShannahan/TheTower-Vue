@@ -22,7 +22,7 @@
                 class="form-control"
                 id="inputEventName"
                 v-model="editable.name"
-                required
+                required="true"
               />
             </div>
             <div class="col-12">
@@ -36,7 +36,7 @@
                 class="form-control"
                 id="inputEventDescription"
                 v-model="editable.description"
-                required
+                required="true"
               ></textarea>
             </div>
             <div class="col-12">
@@ -49,7 +49,7 @@
                 id="inputEventImage"
                 placeholder="Image Url..."
                 v-model="editable.coverImg"
-                required
+                required="true"
               />
             </div>
             <div class="col-12">
@@ -62,7 +62,7 @@
                 id="inputEventLocation"
                 placeholder="Location"
                 v-model="editable.location"
-                required
+                required="true"
               />
             </div>
             <div class="col-md-6">
@@ -72,7 +72,7 @@
                 class="form-control"
                 id="inputEventDate"
                 v-model="editable.startDate"
-                required
+                required="true"
               />
             </div>
             <div class="col-md-4">
@@ -81,7 +81,7 @@
                 id="inputEventType"
                 class="form-select"
                 v-model="editable.type"
-                required
+                required="true"
               >
                 <option selected>Type...</option>
                 <option>Concert</option>
@@ -100,7 +100,7 @@
                 class="form-control"
                 id="inputEventCapacity"
                 v-model="editable.capacity"
-                required
+                required="true"
               />
             </div>
             <div class="modal-footer">
