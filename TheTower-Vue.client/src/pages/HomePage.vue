@@ -6,11 +6,13 @@
   </div>
   <div class="row">
     <div class="d-flex justify-content-around pt-2">
-      <p class="selectable" @click="filterEvents('Concert')">CONCERTS</p>
-      <p class="selectable" @click="filterEvents('Sport')">SPORTS</p>
-      <p class="selectable" @click="filterEvents('Convention')">CONVENTIONS</p>
-      <p class="selectable" @click="filterEvents('Digital')">DIGITAL</p>
-      <p class="selectable" @click="filterEvents('Expos')">EXPOS</p>
+      <p class="selectable" @click="filterEvents(filtered.concert)">CONCERTS</p>
+      <p class="selectable" @click="filterEvents(filtered.sport)">SPORTS</p>
+      <p class="selectable" @click="filterEvents(filtered.convention)">
+        CONVENTIONS
+      </p>
+      <p class="selectable" @click="filterEvents(filtered.digital)">DIGITAL</p>
+      <p class="selectable" @click="filterEvents(filtered.expos)">EXPOS</p>
     </div>
   </div>
   <div class="row d-flex p-3">
