@@ -1,8 +1,6 @@
 export const dev = window.location.origin.includes('localhost')
 export const baseURL = dev ? 'http://localhost:3000' : ''
-export const useSockets = false
-export const domain = 'dev-ynre1pz7.us.auth0.com'
-export const clientId = 'koI64hAUtt7sCgyAXvri3QAIUMhBENg4'
-export const audience = 'thetower.com'
-
-
+export const useSockets = true
+export const domain = 'mickshanny.us.auth0.com'
+export const clientId = 'luwNBP378EfKtXGGgxJj9T2kNZ1A562I'
+export const audience = 'http://Sandbox.com'

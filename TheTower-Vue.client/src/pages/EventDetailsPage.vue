@@ -1,8 +1,8 @@
 <template>
   <div class="row justify-content-center mt-3">
-    <div class="col-12 p-4">
-      <div class="card banner mb-3">
-        <div class="row g-0 elevation-4">
+    <div class="col-11 p-0 banner elevation-4">
+      <div class="blur h-100">
+        <div class="row g-0 p-1">
           <div class="col-md-4 my-4 p-3 pt-4">
             <img
               :src="event.coverImg"
@@ -109,7 +109,7 @@
   </div>
   <div class="row my-4">
     <div class="col-12 px-4">
-      <div class="card bg-dark">
+      <div class="card bg-primary p-2 darken-10 elevation-2">
         <p>Attending:</p>
         <div class="d-flex">
           <div v-for="a in attendees" :key="a.id" class="p-1">
@@ -168,6 +168,7 @@ import { useRoute } from 'vue-router';
 import { commentsService } from '../services/CommentsService';
 import { attendeesService } from '../services/AttendeesService';
 import { logger } from '../utils/Logger';
+import { socketService } from '../services/SocketService';
 export default {
   setup() {
     const route = useRoute()
@@ -177,6 +178,7 @@ export default {
         await eventsService.getEventById(route.params.id)
         await eventsService.getEventComments(route.params.id)
         await eventsService.getEventAttendees(route.params.id)
+        socketService.joinRoom('event-' + route.params.id)
       } catch (error) {
         Pop.toast(error.message, "error"); logger.error(error)
       }
@@ -184,12 +186,12 @@ export default {
     return {
       route,
       editable,
-      //   Make a computed find or include for the attendees and account
       event: computed(() => AppState.activeEvent),
       account: computed(() => AppState.account),
       attendees: computed(() => AppState.attendees),
       comments: computed(() => AppState.comments),
       isAttending: computed(() => AppState.attendees.find(a => a.accountId == AppState.account.id)),
+      bgImage: computed(() => `url(${AppState.activeEvent.coverImg})`),
 
       async cancelEvent() {
         if (Pop.confirm('Are you sure you would like to cancel this event?')) {
@@ -226,14 +228,17 @@ export default {
 <style>
 .banner {
   min-height: 60vh;
-  background-image: url("https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80");
+  background-image: v-bind(bgImage);
   background-position: center;
   background-size: cover;
-  /* backdrop-filter: blur(1000px); */
+}
+
+.blur {
+  backdrop-filter: blur(35px) brightness(60%) contrast(70%);
 }
 
 .text-shadow {
-  text-shadow: 4px 4px 4px black;
+  text-shadow: 0px 0px 4px rgba(4, 4, 17, 0.806);
 }
 
 .bottom {

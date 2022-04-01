@@ -1,6 +1,6 @@
-import { api } from "./AxiosService";
 import { AppState } from "../AppState";
 import { logger } from "../utils/Logger";
+import { api } from "./AxiosService";
 
 class CommentsService {
 
@@ -9,7 +9,7 @@ class CommentsService {
         body.eventId = eventId
         const res = await api.post('api/comments/', body)
         console.log('creating this comment', res.data)
-        AppState.comments.push(res.data)
+        // AppState.comments.push(res.data) this is now handled by sockets
     }
 
     async deleteComment(commentId) {

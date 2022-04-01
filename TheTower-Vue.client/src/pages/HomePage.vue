@@ -5,7 +5,7 @@
     </div>
   </div>
   <div class="row">
-    <div class="d-flex justify-content-around pt-2">
+    <div class="d-flex justify-content-around pt-2 text-light">
       <p class="selectable" @click="filterEvents(filtered.concert)">CONCERTS</p>
       <p class="selectable" @click="filterEvents(filtered.sport)">SPORTS</p>
       <p class="selectable" @click="filterEvents(filtered.convention)">
@@ -52,7 +52,7 @@ export default {
 <style scoped lang="scss">
 .banner {
   min-height: 35vh;
-  background-image: url("https://i.pinimg.com/originals/69/d0/7f/69d07f5b4e21ac19a3bdebbbdd6d2cc1.jpg");
+  background-image: url("https://images.unsplash.com/photo-1567942712661-82b9b407abbf?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1674&q=80");
   background-position: center;
   background-size: cover;
 }
