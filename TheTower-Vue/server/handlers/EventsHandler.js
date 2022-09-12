@@ -1,4 +1,5 @@
-import { logger } from '../utils/logger'
+import { socketProvider } from '../SocketProvider.js'
+// import { logger } from '../utils/logger'
 import { SocketHandler } from '../utils/SocketHandler'
 
 export class EventsHandler extends SocketHandler {
@@ -14,13 +15,15 @@ export class EventsHandler extends SocketHandler {
   }
 
   async joinRoom(payload) {
-    logger.log('joined room:', payload.roomName)
+    // logger.log('joined room:', payload.roomName)
     this.socket.join(payload.roomName)
-    this.socket.emit('joined:room', payload)
+    const users = socketProvider.getUsers(payload.roomName)
+    this.socket.emit('joined:room', payload.roomName)
+    this.socket.emit('list:users', users)
   }
 
   async testEvent(payload) {
-    logger.log('socket test successful')
+    // logger.log('socket test successful')
     this.socket.emit('is:tested', payload)
   }
 }
