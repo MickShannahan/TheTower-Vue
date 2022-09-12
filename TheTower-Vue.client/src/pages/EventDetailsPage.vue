@@ -4,48 +4,30 @@
       <div class="blur h-100">
         <div class="row g-0 p-1">
           <div class="col-md-4 my-4 p-3 pt-4">
-            <img
-              :src="event.coverImg"
-              class="img-fluid rounded"
-              :alt="event.name + ' ' + 'image'"
-            />
+            <img :src="event.coverImg" class="img-fluid rounded" :alt="event.name + ' ' + 'image'" />
           </div>
           <div class="col-md-8">
             <div class="card-body">
               <div class="dropdown" v-if="event.creatorId === account.id">
-                <div
-                  class="dropdown-toggle selectable text-end"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                  id="eventDropdown"
-                  title="edit or delete event"
-                >
+                <div class="dropdown-toggle selectable text-end" data-bs-toggle="dropdown" aria-expanded="false"
+                  id="eventDropdown" title="edit or delete event">
                   <span class="mx-3 text-white display-3">...</span>
                 </div>
                 <div class="dropdown-menu p-0" aria-labelledby="eventDropdown">
-                  <div
-                    class="hoverable selectable"
-                    data-bs-toggle="modal"
-                    data-bs-target="#edit-event-modal"
-                  >
+                  <div class="hoverable selectable" data-bs-toggle="modal" data-bs-target="#edit-event-modal">
                     Edit Event
                   </div>
 
-                  <div
-                    class="hoverable selectable text-danger"
-                    @click="cancelEvent()"
-                  >
+                  <div class="hoverable selectable text-danger" @click="cancelEvent()">
                     Cancel Event
                   </div>
                 </div>
               </div>
-              <h2
-                class="
+              <h2 class="
                   card-title
                   text-uppercase text-white text-shadow
                   fw-bolder
-                "
-              >
+                ">
                 {{ event.name }}
               </h2>
               <p class="card-text text-white text-shadow fs-4">
@@ -57,34 +39,21 @@
               <p class="card-text text-white text-shadow">
                 {{ event.description }}
               </p>
-              <div
-                class="d-flex justify-content-between bottom pt-4"
-                v-if="!event.isCanceled"
-              >
+              <div class="d-flex justify-content-between bottom pt-4" v-if="!event.isCanceled">
                 <p class="fs-2 text-white text-shadow">
                   Capacity: {{ event.capacity }}
                 </p>
-                <button
-                  class="btn btn-info col-3 disabled"
-                  :aria-label="'attend' + ' ' + event.name"
-                  v-if="event.capacity == 0"
-                >
+                <button class="btn btn-info col-3 disabled" :aria-label="'attend' + ' ' + event.name"
+                  v-if="event.capacity == 0">
                   Event is Sold Out
                 </button>
-                <button
-                  class="btn btn-success col-3 disabled"
-                  :aria-label="'attend' + ' ' + event.name"
-                  v-else-if="isAttending"
-                >
+                <button class="btn btn-success col-3 disabled" :aria-label="'attend' + ' ' + event.name"
+                  v-else-if="isAttending">
                   Enjoy the Show!
                 </button>
 
-                <button
-                  v-else
-                  class="btn btn-success col-3"
-                  @click="addAttendee()"
-                  :aria-label="'attend' + ' ' + event.name"
-                >
+                <button v-else class="btn btn-success col-3" @click="addAttendee()"
+                  :aria-label="'attend' + ' ' + event.name">
                   Attend Event
                 </button>
                 <!-- <button
@@ -114,11 +83,7 @@
         <div class="d-flex">
           <div v-for="a in attendees" :key="a.id" class="p-1">
             <p class="d-flex">
-              <img
-                class="user-img"
-                :title="a.account.name"
-                :src="a.account.picture"
-              />
+              <img class="user-img" :title="a.account.name" :src="a.account.picture" />
             </p>
           </div>
         </div>
@@ -130,20 +95,9 @@
       <div class="card">
         <form @submit.prevent="createComment()" class="p-3">
           <div class="form-group mt-3">
-            <label for="inputComment" class="text-end"
-              >Join the conversation...</label
-            >
-            <textarea
-              placeholder="..."
-              type="text"
-              class="form-control"
-              name="inputComment"
-              id="inputComment"
-              rows="5"
-              :aria-label="'create comment for' + ' ' + event.name"
-              v-model="editable.body"
-              required
-            ></textarea>
+            <label for="inputComment" class="text-end">Join the conversation...</label>
+            <textarea placeholder="..." type="text" class="form-control" name="inputComment" id="inputComment" rows="5"
+              :aria-label="'create comment for' + ' ' + event.name" v-model="editable.body" required></textarea>
           </div>
           <div class="col-12 d-flex justify-content-end pt-2">
             <button class="btn btn-success">Create</button>
@@ -160,15 +114,15 @@
 
 <script>
 import { computed, ref } from '@vue/reactivity';
-import { AppState } from '../AppState';
 import { onMounted } from '@vue/runtime-core';
-import Pop from '../utils/Pop';
-import { eventsService } from '../services/EventsService';
 import { useRoute } from 'vue-router';
-import { commentsService } from '../services/CommentsService';
+import { AppState } from '../AppState';
 import { attendeesService } from '../services/AttendeesService';
+import { commentsService } from '../services/CommentsService';
+import { eventsService } from '../services/EventsService';
+import { socketService } from '../services/SocketService.js';
 import { logger } from '../utils/Logger';
-import { socketService } from '../services/SocketService';
+import Pop from '../utils/Pop';
 export default {
   setup() {
     const route = useRoute()
@@ -178,7 +132,7 @@ export default {
         await eventsService.getEventById(route.params.id)
         await eventsService.getEventComments(route.params.id)
         await eventsService.getEventAttendees(route.params.id)
-        socketService.joinRoom('event-' + route.params.id)
+        socketService.joinRoom(`event-${AppState.activeEvent.id}`)
       } catch (error) {
         Pop.toast(error.message, "error"); logger.error(error)
       }

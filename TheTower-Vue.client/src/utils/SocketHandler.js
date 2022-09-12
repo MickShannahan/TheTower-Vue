@@ -17,7 +17,7 @@ export class SocketHandler {
   /**
    * @param {String} url
    */
-  constructor(requiresAuth = false, url = baseURL) {
+  constructor(requiresAuth = true, url = baseURL) {
     if (!useSockets) { return }
     this.socket = io(url || baseURL)
     this.requiresAuth = requiresAuth
@@ -36,6 +36,7 @@ export class SocketHandler {
 
   onConnected(connection) {
     logger.log('[SOCKET_CONNECTION]', connection)
+
     this.connected = true
     this.playback()
   }

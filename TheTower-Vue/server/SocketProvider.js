@@ -1,6 +1,6 @@
 import { Server } from 'socket.io'
-import { logger } from './utils/Logger'
 import { attachHandlers } from '../Setup'
+import { logger } from './utils/Logger'
 
 const SOCKET_EVENTS = {
   connection: 'connection',
@@ -68,6 +68,18 @@ class SocketProvider {
    */
   message(eventName, payload) {
     this.io.emit(eventName, payload)
+  }
+
+  getUsers(roomName) {
+    logger.log('getting users for ', roomName)
+    const sids = this.io.sockets.adapter.rooms.get(roomName)
+    logger.log('room found', sids)
+    const users = []
+    sids.forEach(s => {
+      const socket = this.io.sockets.sockets.get(s)
+      users.push(socket._handlers[0].profile)
+    })
+    return users
   }
 }
 

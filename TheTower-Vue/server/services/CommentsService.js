@@ -1,5 +1,5 @@
 import { dbContext } from '../db/DbContext'
-import { socketProvider } from '../SocketProvider'
+import { socketProvider } from '../SocketProvider.js'
 import { BadRequest } from '../utils/Errors'
 
 class CommentsService {
@@ -11,9 +11,10 @@ class CommentsService {
   async createComment(newComment) {
     const createdComment = await dbContext.Comments.create(newComment)
     await createdComment.populate('creator', 'name picture')
-    socketProvider.messageRoom('event-' + newComment.eventId, 'new:comment', createdComment)
-    const towerEvent = await dbContext.TowerEvents.findById(newComment.eventId)
-    socketProvider.messageUser(towerEvent.creatorId.toString(), 'new:notify', { message: `${createdComment.creator.name} just commented on your event`, towerEvent })
+    socketProvider.messageRoom(`event-${newComment.eventId}`, 'new:comment', createdComment)
+    const event = await dbContext.TowerEvents.findById(newComment.eventId)
+    socketProvider.messageUser(event.creatorId.toString(), 'new:notify', { message: `${createdComment.creator.name} commented on ${event.name} <a href="/#/events/${event.id}">go check it out</a>` })
+
     return createdComment
   }
 
